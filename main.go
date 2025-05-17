@@ -10,6 +10,7 @@ import (
 
 func main() {
 	log.Info().Msg("Starting the application")
+	log.Info().Msg("Oh... Wow! New feature just dropped!")
 	greet(os.Stdout)
 }
 
