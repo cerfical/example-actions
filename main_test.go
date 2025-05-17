@@ -1,8 +1,15 @@
 package main
 
-import "testing"
+import (
+	"bytes"
+	"testing"
+)
 
-func TestMain(t *testing.T) {
-	main()
-	// Test stub
+func TestGreet(t *testing.T) {
+	var buf bytes.Buffer
+	greet(&buf)
+
+	if buf.String() != "Hello, GitHub Actions!" {
+		t.Fail()
+	}
 }
