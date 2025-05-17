@@ -12,4 +12,5 @@ func TestGreet(t *testing.T) {
 	if buf.String() != "Hello, GitHub Actions!" {
 		t.Fail()
 	}
+	//t.Fail()
 }
