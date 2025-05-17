@@ -1,4 +1,4 @@
-name: Run Tests
+name: Tests
 
 on:
     push:
@@ -9,11 +9,11 @@ on:
 
 jobs:
     test:
-        name: Test and Update Coverage
+        name: Run Tests and Update Coverage
         runs-on: ubuntu-latest
 
         steps:
-            - name: Checkout code
+            - name: Checkout repository
               uses: actions/checkout@v4
 
             - name: Install Go
@@ -27,7 +27,7 @@ jobs:
             - name: Run tests
               run: go test -v -coverprofile=coverage.out ./...
 
-            - name: Upload coverage to Coveralls
+            - name: Update coverage report
               uses: coverallsapp/github-action@v2
               with:
                   file: coverage.out
