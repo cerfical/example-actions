@@ -31,19 +31,19 @@ jobs:
             - name: Get arch-os string
               shell: bash
               run: |
-                  ARCH=$(uname -m)
-                  OS=$(uname -s | tr '[:upper:]' '[:lower:]')
-                  echo "TARGET=${ARCH}-${OS}" >> $GITHUB_ENV
-                  echo "Target is ${ARCH}-${OS}"
+                  APP_ARCH=$(go env GOARCH)
+                  APP_OS=$(go env GOOS)
+                  APP_PLATFORM=${APP_ARCH}-${APP_OS}
+                  echo "APP_PLATFORM=${APP_PLATFORM}" >> $GITHUB_ENV
+                  echo "Target platform is ${APP_PLATFORM}"
 
             - name: Archive build artifacts
               shell: bash
               run: |
-                  mkdir dist
-                  if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
-                    zip -j dist/app-windows.zip app
+                  if [ "$RUNNER_OS" == "Windows" ]; then
+                    zip -j app-${APP_PLATFORM}.zip app
                   else
-                    tar -czf dist/app-linux.tar.gz -C . app
+                    tar -czf app-${APP_PLATFORM}.tar.gz -C . app
                   fi
 
             - name: Upload archive
