@@ -34,7 +34,7 @@ jobs:
                   ARCH=$(uname -m)
                   OS=$(uname -s | tr '[:upper:]' '[:lower:]')
                   echo "TARGET=${ARCH}-${OS}" >> $GITHUB_ENV
-                  echo "Target is ${TARGET}"
+                  echo "Target is ${ARCH}-${OS}"
 
             - name: Archive build artifacts
               shell: bash
