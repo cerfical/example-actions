@@ -26,7 +26,9 @@ jobs:
               run: go mod download
 
             - name: Build project
-              run: go build -o app main.go
+              run: |
+                  mkdir build
+                  go build ../app/
 
             - name: Get arch-os string
               shell: bash
@@ -42,9 +44,9 @@ jobs:
               run: |
                   mkdir dist
                   if [ "$RUNNER_OS" == "Windows" ]; then
-                    zip -j dist/app-${APP_PLATFORM}.zip app
+                    zip -j dist/app-${APP_PLATFORM}.zip build
                   else
-                    tar -czf dist/app-${APP_PLATFORM}.tar.gz -C . app
+                    tar -czf dist/app-${APP_PLATFORM}.tar.gz -C . build
                   fi
 
             - name: Upload archive
