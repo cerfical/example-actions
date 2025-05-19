@@ -3,13 +3,15 @@ name: CD
 on:
     push:
         tags:
-            - "v*.*.*"
+            - "v*"
 
 jobs:
-    release:
-        name: Release
-        runs-on: ubuntu-latest
-
+    build:
+        name: Build for ${{ matrix.os }}
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                os: [ubuntu-latest, windows-latest]
         steps:
             - name: Checkout repository
               uses: actions/checkout@v4
@@ -22,10 +24,27 @@ jobs:
             - name: Install dependencies
               run: go mod download
 
-            - name: Build and release
+            - name: Build project
               run: go build -o app main.go
+
+            - name: Upload build artifacts
+              uses: actions/upload-artifact@v4
+              with:
+                  name: build-${{ matrix.os }}
+                  path: app
+
+    release:
+        name: Create release
+        needs: build
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Download build artifacts
+              uses: actions/download-artifact@v4
+              with:
+                  path: ./artifacts
 
             - name: Upload Release
               uses: softprops/action-gh-release@v2
               with:
-                  files: app
+                  files: ./artifacts/**/*
