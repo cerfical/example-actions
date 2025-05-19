@@ -24,7 +24,7 @@ jobs:
               uses: golangci/golangci-lint-action@v8
 
     test:
-        name: Run Tests and Update Coverage
+        name: Run Tests and Check Coverage
         runs-on: ubuntu-latest
 
         steps:
