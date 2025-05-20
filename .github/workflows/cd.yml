@@ -28,32 +28,15 @@ jobs:
             - name: Build project
               run: |
                   mkdir build && cd build
-                  go build ../app/
+                  for dir in ../cmd/*/; do
+                    go build dir
+                  done
 
-            - name: Get arch-os string
-              shell: bash
-              run: |
-                  APP_ARCH=$(go env GOARCH)
-                  APP_OS=$(go env GOOS)
-                  APP_PLATFORM=${APP_ARCH}-${APP_OS}
-                  echo "APP_PLATFORM=${APP_PLATFORM}" >> $GITHUB_ENV
-                  echo "Target platform is ${APP_PLATFORM}"
-
-            - name: Archive build artifacts
-              if: matrix.os == 'ubuntu-latest'
-              run: |
-                  mkdir dist
-                  if [ "$RUNNER_OS" == "Windows" ]; then
-                    Compress-Archive -Path ./build/* -Destination dist/app-${APP_PLATFORM}.zip
-                  else
-                    tar -czf dist/app-${APP_PLATFORM}.tar.gz -C . build
-                  fi
-
-            - name: Upload archive
+            - name: Upload build artifacts
               uses: actions/upload-artifact@v4
               with:
                   name: build-${{ matrix.os }}
-                  path: dist/**/*
+                  path: build/**/*
 
     release:
         name: Create release
@@ -64,9 +47,14 @@ jobs:
             - name: Download build artifacts
               uses: actions/download-artifact@v4
               with:
-                  path: ./artifacts
+                  path: ./build
+
+            - name: Archive build artifacts
+              run: |
+                  zip -j dist/app-${APP_PLATFORM}.zip build/window-latest/
+                  tar -czf dist/app-${APP_PLATFORM}.tar.gz -C . build/ubuntu/latest/
 
             - name: Upload release
               uses: softprops/action-gh-release@v2
               with:
-                  files: ./artifacts/**/*
+                  files: ./dist/**/*
