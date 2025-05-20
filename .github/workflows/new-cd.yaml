@@ -16,4 +16,5 @@ jobs:
         steps:
             - uses: googleapis/release-please-action@v4
               with:
-                  release-type: simple
+                  skip-github-pull-request: true
+                  release-type: go
