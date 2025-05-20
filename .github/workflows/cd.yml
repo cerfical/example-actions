@@ -28,8 +28,8 @@ jobs:
             - name: Build project
               run: |
                   mkdir build && cd build
-                  for dir in ../cmd/*/; do
-                    go build dir
+                  for cmd in ../cmd/*/; do
+                    go build ${cmd}
                   done
 
             - name: Upload build artifacts
