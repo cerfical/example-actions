@@ -14,7 +14,7 @@ func main() {
 }
 
 func greet(w io.Writer) {
-	if _, err := fmt.Fprintf(w, "Hello, GitHub Actions!"); err != nil {
+	if _, err := fmt.Fprintf(w, "Hello!"); err != nil {
 		panic(err)
 	}
 }
