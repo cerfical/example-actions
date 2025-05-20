@@ -26,6 +26,7 @@ jobs:
               run: go mod download
 
             - name: Build project
+              shell: bash
               run: |
                   mkdir build && cd build
                   for cmd in ../cmd/*/; do
