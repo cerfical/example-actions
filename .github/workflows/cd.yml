@@ -25,7 +25,7 @@ jobs:
             - name: Install dependencies
               run: go mod download
 
-            - name: Build project
+            - name: Build
               shell: bash
               run: |
                   ARCH=$(go env GOARCH)
@@ -33,7 +33,7 @@ jobs:
                   BUILD_DIR=build/${OS}/${ARCH}
 
                   mkdir -p ${BUILD_DIR} && cd ${BUILD_DIR}
-                  for cmd in $(find ../../../cmd/ -maxdepth 1 -mindepth 1 -type d); do
+                  for cmd in ../../../cmd/*/; do
                       cmd_name=$(basename "$cmd")
                       echo "Building ${cmd_name} for ${ARCH}-${OS}"
 
@@ -65,7 +65,7 @@ jobs:
                   for system_dir in ./build/*/; do
                       system=$(basename "$system_dir" | tr '[:upper:]' '[:lower:]')
 
-                      for platform_dir in $(find "$system_dir" -maxdepth 1 -mindepth 1 -type d); do
+                      for platform_dir in ${system_dir}/*/; do
                           arch=$(basename "$platform_dir" | tr '[:upper:]' '[:lower:]')
 
                           platform=${arch}-${system}
