@@ -52,8 +52,8 @@ jobs:
 
             - name: Archive build artifacts
               run: |
-                  zip -j dist/app-${APP_PLATFORM}.zip build/window-latest/
-                  tar -czf dist/app-${APP_PLATFORM}.tar.gz -C . build/ubuntu/latest/
+                  zip -j dist/app-${APP_PLATFORM}.zip build/windows-latest/
+                  tar -czf dist/app-${APP_PLATFORM}.tar.gz -C . build/ubuntu-latest/
 
             - name: Upload release
               uses: softprops/action-gh-release@v2
