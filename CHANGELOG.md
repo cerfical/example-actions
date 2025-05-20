@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.36](https://github.com/cerfical/example-actions/compare/v0.0.35...v0.0.36) (2025-05-20)
+
+
+### Bug Fixes
+
+* fix newlines ([01240f7](https://github.com/cerfical/example-actions/commit/01240f73168def3c4d494e39a619d56bc47033d8))
+
 ## [0.0.35](https://github.com/cerfical/example-actions/compare/v0.0.34...v0.0.35) (2025-05-20)
 
 
