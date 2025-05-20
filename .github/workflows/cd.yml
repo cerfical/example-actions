@@ -52,7 +52,7 @@ jobs:
               run: |
                   mkdir dist
                   zip -jr dist/app-${APP_PLATFORM}.zip ./build-windows-latest/
-                  tar -czf dist/app-${APP_PLATFORM}.tar.gz -C . ./build-ubuntu-latest/
+                  tar -czf dist/app-${APP_PLATFORM}.tar.gz -C build-ubuntu-latest .
 
             - name: Upload release
               uses: softprops/action-gh-release@v2
