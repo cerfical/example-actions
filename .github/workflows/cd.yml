@@ -31,11 +31,13 @@ jobs:
                   ARCH=$(go env GOARCH)
                   OS=$(go env GOOS)
                   BUILD_DIR=build/${OS}/${ARCH}
-                  echo "Building for ${ARCH}-${OS}"
 
                   mkdir -p ${BUILD_DIR} && cd ${BUILD_DIR}
-                  for cmd in ../cmd/*/; do
-                    go build ${cmd}
+                  for cmd in $(find ../../../cmd/ -maxdepth 1 -mindepth 1 -type d); do
+                      cmd_name=$(basename "$cmd")
+                      echo "Building ${cmd_name} for ${ARCH}-${OS}"
+
+                      go build ${cmd}
                   done
 
             - name: Upload build artifacts
