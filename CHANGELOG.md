@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.0](https://github.com/cerfical/example-actions/compare/v0.0.36...v0.1.0) (2025-05-20)
+
+
+### Features
+
+* add new feature [#1](https://github.com/cerfical/example-actions/issues/1) ([e5a8145](https://github.com/cerfical/example-actions/commit/e5a81455d444e3bda05f89cb1a12d872ba295cb0))
+
 ## [0.0.36](https://github.com/cerfical/example-actions/compare/v0.0.35...v0.0.36) (2025-05-20)
 
 
